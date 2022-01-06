@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+
+<br>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<!-- chart -->
+
+		<div class="col-sm-3">
+	    	<div class="card" style="height:600px;">
+		    	<div class="card-header" style="font-size :20px; text-align: center;">
+		    		<b>CONFIRMED : {{africa_total}} cases</b>
+		  		</div>
+
+	    		<div class="card-body" style="max-height: 550px;overflow: scroll; overflow-x:hidden;">
+
+	    			<form method="" enctype="multipart/form-data">
+
+			            {% csrf_token %}
+
+			            <!-- names of country -->
+
+			            <div style="float: left;width:40%;">
+
+			               {% for con in africa_names %}
+
+			                  <table style="border-width: 6px; border: #333;width:100%;">
+
+			                     <tr>
+
+			                        <input class="btn btn-info" type="submit" value={{con}} name="country" style="float: left;width:150px;margin:5px;">
+
+			                     </tr>
+
+			                  </table>
+
+			               {% endfor %}
+
+			            </div>
+			        </form>
+
+	    			<!-- the chart -->
+					
+					<form method="" enctype="multipart/form-data">
+
+			            {% csrf_token %}
+
+			            <!-- names of country -->
+
+			            <div style="float: left;width:60%;">
+
+			               {% for con in africa_values %}
+
+			                  <table style=" border: #333;width:100%;">
+
+			                     <tr>
+
+			                        <input class="btn btn-light" type="submit" value={{con}} name="country" style="float: center;width:200px;margin:5px;">
+
+			                     </tr>
+
+			                  </table>
+
+			               {% endfor %}
+
+			            </div>
+			        </form>
+	    		</div>
+	    	</div>
+	    </div>
+
+	    <!-- map -->
+
+	    <div class="col-sm-9">
+	    	<div class="card" style="height:600px;">
+
+	    	</div>
+	    	
+	    	
+	    </div>
+
+
+	</div>
+	
+</div>
+
+<hr>
+
+{% endblock %}
