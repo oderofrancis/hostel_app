@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.core.serializers import serialize
+from django.http import HttpResponse
 from .models import *
 from .forms import *
 import geopandas as gpd
@@ -62,3 +63,7 @@ def dashboard(request):
 	context = {'total':total,'data_names':data_names,'data_values':data_values}
 
 	return render(request,'user/dashboard.html',context)
+
+def hostel(request):
+	hostel = serialize('geojson',Hostel.objects.all())
+	return HttpResponse(hostel,content_type='application/json')

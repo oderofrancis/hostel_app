@@ -14,9 +14,9 @@ class HostelForm(forms.ModelForm):
             attrs={
             'map_width': 330, 
             'map_height': 400,
-            'default_lat': -0.4201,
-            'default_lon': 36.9476,
-            'default_zoom':6,
+            'default_lat': -0.4001,
+            'default_lon': 36.9576,
+            'default_zoom':14,
             'max_zoom':20,
             'min_zoom':3,
             

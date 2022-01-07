@@ -1,105 +1,77 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
 
-{% load leaflet_tags %}
-
-{% leaflet_js %}
-
-{% leaflet_css %}
+{% load static %}
 
 
-{% block title %}
-Dashboard
-{% endblock %}
+	<meta charset="utf-8">
+	<title> DOMA| {% block title %}Dashboard{% endblock %}</title>
 
-{% block content %}
+	<!-- bootstrap -->
 
-<br>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-<div class="container-fluid">
+	<!-- control -->
 
-	<div class="row">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.css" integrity="sha512-yP7tTm3rX87fOK3iDh9K2RJTHsq6BfGZ8sFqRMIfsmmZVakOw483WyOKlRWVLjHCHEDIcEkp/U+cO3TnZ8oiuw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-		<!-- chart -->
+	<style type="text/css">
+		#gis{
+			width: 100%;
+			height: 560px;
+		}
+	</style>
 
-		<div class="col-sm-3">
-	    	<div class="card" style="height:600px;">
-		    	<div class="card-header" style="font-size :20px; text-align: center;">
-		    		<b>HOSTELS</b>
-		  		</div>
+</head>
 
-	    		<div class="card-body" style="max-height: 550px;overflow: scroll; overflow-x:hidden;">
+<body>
 
-	    			<form method="" enctype="multipart/form-data">
-
-			            {% csrf_token %}
-
-			            <!-- names of hostel -->
-
-			            <div style="float: left;width:50%;">
-
-			               {% for con in data_names %}
-
-			                  <table style="border-width: 6px; border: #333;width:100%;">
-
-			                     <tr>
-
-			                        <input class="btn btn-info" type="submit" value={{con}} name="country" style="width:140px;margin:5px;">
-
-			                     </tr>
-
-			                  </table>
-
-			               {% endfor %}
-
-			            </div>
-			        </form>
-
-	    			<!-- the chart -->
-					
-					<form method="" enctype="multipart/form-data">
-
-			            {% csrf_token %}
-
-			            <!-- names of country -->
-
-			            <div style="float: left;width:50%;">
-
-			               {% for con in data_values %}
-
-			                  <table style=" border: #333;width:100%;">
-
-			                     <tr>
-
-			                        <input class="btn btn-secondary" type="submit" value={{con}} name="country" style="width:140px;margin:5px;">
-
-			                     </tr>
-
-			                  </table>
-
-			               {% endfor %}
-
-			            </div>
-			        </form>
-	    		</div>
-	    	</div>
-	    </div>
-
-	    <!-- map -->
-
-	     <div class="col-sm-9">
-	     	<div class="card card-body" style="height:600px;">
-
-	     		 {% leaflet_map "gis" callback="window.our_layers" %}
-	     		
-	     	</div>
-	    	
-	    </div>
-
-	   
-	    
-	</div>
+	{% include 'navbar.html' %}
 	
-</div>
+	
+	<div class="container-fluid">
+
+	{% block content %}
+
+	<br>
+
+		<div class="row">
+
+			{% include 'user/chart.html' %}
+
+			<br>
+
+			{% include 'user/map.html' %}
+		
+		</div>
+
+		<hr>
 
 
-{% endblock %}
+	{% endblock %}
+
+	</div>
+
+
+
+</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+<!-- ajax -->
+
+<script src="{% static 'ajax.js' %}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js" integrity="sha512-Abr21JO2YqcJ03XGZRPuZSWKBhJpUAR6+2wH5zBeO4wAw4oksr8PRdF+BKIRsxvCdq+Mv4670rZ+dLnIyabbGw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- grouped control -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-groupedlayercontrol/0.6.1/leaflet.groupedlayercontrol.min.js" integrity="sha512-cdomNfv1IRJE1v+2/irZdkNU09XwtYP2bQ1qK1ybWF/vz+P3GTMZtrXwlxTU41ExwoWGvEf0njIak5l/ZQaIMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+</html>

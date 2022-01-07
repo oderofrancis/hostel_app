@@ -1,0 +1,33 @@
+{% load leaflet_tags %}
+
+{% leaflet_js %}
+
+{% leaflet_css %}
+
+<div class="col-md-9">
+
+<!-- the map -->
+
+	<div class="card card-body" style="float: left; height: 600px;width:100%;">
+
+		<script>
+
+			function our_layers(map,options){
+				var hostel_data = new L.GeoJSON.AJAX("{% url 'hostel' %}",{
+
+				}).addTo(map);
+
+				var groupedOverlays = {
+					"Data sets":{
+						"Hostel":hostel_data,
+					}
+				};
+
+				L.control.groupedLayers(groupedOverlays)
+
+		</script>
+
+{% leaflet_map "gis" callback="window.our_layers" %}
+
+		</div>
+</div>

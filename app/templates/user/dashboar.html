@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% load leaflet_tags %}
+
+{% leaflet_js %}
+
+{% leaflet_css %}
+
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+
+<br>
+
+<div class="container-fluid">
+
+	<div class="row">
+
+		<!-- chart -->
+
+		<div class="col-sm-3">
+	    	<div class="card" style="height:600px;">
+		    	<div class="card-header" style="font-size :20px; text-align: center;">
+		    		<b>HOSTELS</b>
+		  		</div>
+
+	    		<div class="card-body" style="max-height: 550px;overflow: scroll; overflow-x:hidden;">
+
+	    			<form method="" enctype="multipart/form-data">
+
+			            {% csrf_token %}
+
+			            <!-- names of hostel -->
+
+			            <div style="float: left;width:50%;">
+
+			               {% for con in data_names %}
+
+			                  <table style="border-width: 6px; border: #333;width:100%;">
+
+			                     <tr>
+
+			                        <input class="btn btn-info" type="submit" value={{con}} name="country" style="width:140px;margin:5px;">
+
+			                     </tr>
+
+			                  </table>
+
+			               {% endfor %}
+
+			            </div>
+			        </form>
+
+	    			<!-- the chart -->
+					
+					<form method="" enctype="multipart/form-data">
+
+			            {% csrf_token %}
+
+			            <!-- names of country -->
+
+			            <div style="float: left;width:50%;">
+
+			               {% for con in data_values %}
+
+			                  <table style=" border: #333;width:100%;">
+
+			                     <tr>
+
+			                        <input class="btn btn-secondary" type="submit" value={{con}} name="country" style="width:140px;margin:5px;">
+
+			                     </tr>
+
+			                  </table>
+
+			               {% endfor %}
+
+			            </div>
+			        </form>
+	    		</div>
+	    	</div>
+	    </div>
+
+	    <!-- map -->
+
+	     <div class="col-sm-9">
+	     	<div class="card card-body" style="height:600px;">
+
+	     		 {% leaflet_map "gis" callback="window.our_layers" %}
+	     		
+	     	</div>
+	    	
+	    </div>
+
+	   
+	    
+	</div>
+	
+</div>
+
+
+{% endblock %}
