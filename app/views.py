@@ -44,4 +44,21 @@ def home(request):
 # dashboard
 
 def dashboard(request):
-	return render(request,'user/dashboard.html')
+
+	hostel = serialize('geojson',Hostel.objects.all())
+	data = gpd.read_file(hostel)
+	total = data[data.columns[2]].sum()
+
+	data = data[['hostel_name',data.columns[2]]].groupby('hostel_name').sum()
+
+	data = data.reset_index()
+	data.columns=['hostel','number']
+
+	data = data.sort_values(by='number',ascending=False)
+	data_values = data['number'].values.tolist()
+	data_names = data['hostel'].values.tolist()
+
+
+	context = {'total':total,'data_names':data_names,'data_values':data_values}
+
+	return render(request,'user/dashboard.html',context)

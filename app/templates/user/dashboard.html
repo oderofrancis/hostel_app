@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}
+{% load leaflet_tags %}
 
+{% leaflet_js %}
+
+{% leaflet_css %}
+
+
+{% block title %}
+Dashboard
 {% endblock %}
 
 {% block content %}
@@ -17,7 +24,7 @@
 		<div class="col-sm-3">
 	    	<div class="card" style="height:600px;">
 		    	<div class="card-header" style="font-size :20px; text-align: center;">
-		    		<b>CONFIRMED : {{africa_total}} cases</b>
+		    		<b>HOSTELS</b>
 		  		</div>
 
 	    		<div class="card-body" style="max-height: 550px;overflow: scroll; overflow-x:hidden;">
@@ -26,17 +33,17 @@
 
 			            {% csrf_token %}
 
-			            <!-- names of country -->
+			            <!-- names of hostel -->
 
-			            <div style="float: left;width:40%;">
+			            <div style="float: left;width:50%;">
 
-			               {% for con in africa_names %}
+			               {% for con in data_names %}
 
 			                  <table style="border-width: 6px; border: #333;width:100%;">
 
 			                     <tr>
 
-			                        <input class="btn btn-info" type="submit" value={{con}} name="country" style="float: left;width:150px;margin:5px;">
+			                        <input class="btn btn-info" type="submit" value={{con}} name="country" style="width:140px;margin:5px;">
 
 			                     </tr>
 
@@ -55,15 +62,15 @@
 
 			            <!-- names of country -->
 
-			            <div style="float: left;width:60%;">
+			            <div style="float: left;width:50%;">
 
-			               {% for con in africa_values %}
+			               {% for con in data_values %}
 
 			                  <table style=" border: #333;width:100%;">
 
 			                     <tr>
 
-			                        <input class="btn btn-light" type="submit" value={{con}} name="country" style="float: center;width:200px;margin:5px;">
+			                        <input class="btn btn-secondary" type="submit" value={{con}} name="country" style="width:140px;margin:5px;">
 
 			                     </tr>
 
@@ -79,19 +86,20 @@
 
 	    <!-- map -->
 
-	    <div class="col-sm-9">
-	    	<div class="card" style="height:600px;">
+	     <div class="col-sm-9">
+	     	<div class="card card-body" style="height:600px;">
 
-	    	</div>
-	    	
+	     		 {% leaflet_map "gis" callback="window.our_layers" %}
+	     		
+	     	</div>
 	    	
 	    </div>
 
-
+	   
+	    
 	</div>
 	
 </div>
 
-<hr>
 
 {% endblock %}
